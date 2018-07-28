@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "installation.fullname" . }}
+  name: {{ template "shift-scheduler.fullname" . }}
   labels:
-    app: {{ template "installation.name" . }}
-    chart: {{ template "installation.chart" . }}
+    app: {{ template "shift-scheduler.name" . }}
+    chart: {{ template "shift-scheduler.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
@@ -15,5 +15,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: {{ template "installation.name" . }}
+    app: {{ template "shift-scheduler.name" . }}
     release: {{ .Release.Name }}

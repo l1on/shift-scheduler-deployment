@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -euxo pipefail
+
+openssl aes-256-cbc -K $encrypted_15318326ed2b_key -iv $encrypted_15318326ed2b_iv
+  -in tavis-ci-srv-account.json.enc -out tavis-ci-srv-account.json -d
+
+curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-209.0.0-linux-x86_64.tar.gz | tar xz
+
+./google-cloud-sdk/install.sh -q
+
+curl https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-rc.1-linux-amd64.tar.gz | tar xz 
+
+mv linux-amd64/helm /usr/local/bin/helm

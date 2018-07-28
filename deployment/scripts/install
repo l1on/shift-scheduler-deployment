@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -euxo pipefail
+
+gcloud auth activate-service-account --key-file=tavis-ci-srv-account.json
+
+project_id="$(gcloud projects list  --format="csv[no-heading](PROJECT_ID)")"
+cluster="$(gcloud container clusters list --format="csv[no-heading](NAME)")"
+zone="$(gcloud container clusters list --format="csv[no-heading](LOCATION)")"
+
+gcloud container clusters get-credentials "${cluster}" --zone "${zone}" --project "${project_id}"
+
+API_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-api/tags/?page_size=1 | jq -r '.results|.[0]|.name')
+APP_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-app/tags/?page_size=1 | jq -r '.results|.[0]|.name')
+
+helm upgrade --install shift-scheduler --set api.image.tag="${API_IMAGE_TAG}" .

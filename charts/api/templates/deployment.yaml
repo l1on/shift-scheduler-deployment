@@ -1,28 +1,28 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ template "installation.fullname" . }}
+  name: {{ template "shift-scheduler.fullname" . }}
   labels:
-    app: {{ template "installation.name" . }}
-    chart: {{ template "installation.chart" . }}
+    app: {{ template "shift-scheduler.name" . }}
+    chart: {{ template "shift-scheduler.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "installation.name" . }}
+      app: {{ template "shift-scheduler.name" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "installation.name" . }}
+        app: {{ template "shift-scheduler.name" . }}
         release: {{ .Release.Name }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
           env:
             - name: PORT
               value: {{ .Values.serverPort | quote }}
