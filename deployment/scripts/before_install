@@ -2,14 +2,18 @@
 
 set -euxo pipefail
 
+# decrypt service account file
 openssl aes-256-cbc -K $encrypted_447b2a4925b5_key -iv $encrypted_447b2a4925b5_iv -in travis-ci-srv-account.json.enc -out travis-ci-srv-account.json -d
 
+# install gcloud
 curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-209.0.0-linux-x86_64.tar.gz | tar xz
-
 ./google-cloud-sdk/install.sh -q
 
-gcloud components install kubectl
+# install kubectl 
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
 
+# install helm
 curl https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-rc.1-linux-amd64.tar.gz | tar xz 
-
 sudo mv linux-amd64/helm /usr/local/bin/helm
