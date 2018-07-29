@@ -1,6 +1,4 @@
-language: node_js
-node_js:
-- node
+language: generic
 script: deployment/scripts/install
 notifications:
   slack:
