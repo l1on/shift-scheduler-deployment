@@ -2,8 +2,8 @@
 
 set -euxo pipefail
 
-openssl aes-256-cbc -K $encrypted_15318326ed2b_key -iv $encrypted_15318326ed2b_iv
-  -in tavis-ci-srv-account.json.enc -out tavis-ci-srv-account.json -d
+openssl aes-256-cbc -K $encrypted_447b2a4925b5_key -iv $encrypted_447b2a4925b5_iv
+  -in travis-ci-srv-account.json.enc -out travis-ci-srv-account.json -d
 
 curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-209.0.0-linux-x86_64.tar.gz | tar xz
 
