@@ -5,10 +5,11 @@ set -euxo pipefail
 gcloud auth activate-service-account --key-file=travis-ci-srv-account.json
 
 project_id="$(gcloud projects list --format="csv[no-heading](PROJECT_ID)")"
-cluster="$(gcloud container clusters list --project ${project_id} --format="csv[no-heading](NAME)")"
-cluster_zone="$(gcloud container clusters list --project ${project_id} --format="csv[no-heading](LOCATION)")"
+cluster="$(gcloud container clusters list --project ${project_id} --format="csv[no-heading](NAME,LOCATION)")"
+cluster_name="$(echo "${cluster}" | cut -d ',' -f 1-1)"
+cluster_zone="$(echo "${cluster}" | cut -d ',' -f 2-2)"
 
-gcloud container clusters get-credentials "${cluster}" --zone "${cluster_zone}" --project "${project_id}"
+gcloud container clusters get-credentials "${cluster_name}" --zone "${cluster_zone}" --project "${project_id}"
 
 API_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-api/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 APP_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-app/tags/?page_size=1 | jq -r '.results|.[0]|.name')
