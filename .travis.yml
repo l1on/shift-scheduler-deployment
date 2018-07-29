@@ -1,3 +1,4 @@
+sudo: required
 language: generic
 script: deployment/scripts/install
 notifications:
