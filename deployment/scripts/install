@@ -5,7 +5,7 @@ set -euxo pipefail
 gcloud auth activate-service-account --key-file=travis-ci-srv-account.json
 
 project_id="$(gcloud projects list --format="csv[no-heading](PROJECT_ID)")"
-cluster="$(gcloud container clusters list --project ${project_id} --format="csv[no-heading](NAME,LOCATION)")"
+cluster="$(gcloud container clusters list --project ${project_id} --format="csv[no-heading](LOCATION,NAME)")"
 cluster_name="$(echo "${cluster}" | cut -d ',' -f 1-1)"
 cluster_zone="$(echo "${cluster}" | cut -d ',' -f 2-2)"
 
