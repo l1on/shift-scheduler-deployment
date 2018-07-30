@@ -28,10 +28,10 @@ spec:
               value: {{ .Values.serverPort | quote }}
           livenessProbe:
             httpGet:
-              path: /
-              port: {{ .Values.serverPort | quote }}
+              path: /healthcheck
+              port: {{ .Values.serverPort }}
           readinessProbe:
             httpGet:
               path: /healthcheck
-              port: {{ .Values.serverPort | quote }}
+              port: {{ .Values.serverPort }}
 
