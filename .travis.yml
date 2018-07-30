@@ -3,8 +3,5 @@ language: generic
 script: deployment/scripts/install
 notifications:
   slack:
-    template:
-      - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author} %{result} in %{duration}"
-      - "%{message}"
     secure: cfzH+OIT5zYylRPskB1AYV+qx6LkMRus5ABxqsDH7cUXRo7tl6jB6YUkljJ/BSMxrtP6P2cJeUMHH2MjjxtYUfzTOauU2pYICP5IXYAfVc3+/JNmZ5OX8z9OMpojU5PRQWh5y5q4ePex78/1Cazibiog8vtZ8+41f1gm5jjmZhhLUbkFJeMJsRAmL3qiZhy3wkSv8mj9dHdphsPu8gzz4db9tTM85MKafTtT0FdFsYYSNhaLjYywM6oeqGIF/VXw2Dru+pEWVOU7ZZ6ALF9SUWSLRMNx7XzFQggPvoQPLeYGWbaqKtX6Cuwi+bGaZXfn0KXaORVKFtQ4Ic+V57tdDU7LSKdt8leVhv+Kmzv6k+hrQK76rGCLQZGzBrJyJyVOsffgTXvOncyMQgPJCpCfdFZgWezndGRfC4/W4pGkr8I1lWHoiNJt+zvW3JUuOXDsHTFCvNNN/JsbzlhfR78xvWV0eTwhioiuDtAxzRxYKJviGoZo4BV9iCo4H+4D74tLbcFG2/d40ytvtthSqww2MiVP3RDAGtfVC9gCPg0MitCWz5mtwKNpET3p5dD3a5w03wb4E3pR0q2poST8LnkBgFUkZgOs4IUUpKbjPHsvXzHSec+e7XURnweJec6camKQAw133Lzp8JFKwAo99eflPovFLsqdgDsmpYqAM0c61WU=#deployment-build
 before_install: deployment/scripts/before_install
