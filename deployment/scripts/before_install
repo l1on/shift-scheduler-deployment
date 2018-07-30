@@ -10,11 +10,6 @@ curl -o /tmp/google-cloud-sdk-209.0.0-linux-x86_64.tar.gz https://dl.google.com/
 tar -xzf /tmp/google-cloud-sdk-209.0.0-linux-x86_64.tar.gz -C /tmp/
 /tmp/google-cloud-sdk/install.sh -q
 
-# install kubectl 
-#curl -L -o /tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-#chmod +x /tmp/kubectl
-#sudo mv /tmp/kubectl /usr/local/bin/kubectl
-
 # install helm
 curl -o /tmp/helm-v2.9.1-linux-amd64.tar.gz https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz
 tar -xzf /tmp/helm-v2.9.1-linux-amd64.tar.gz -C /tmp/
