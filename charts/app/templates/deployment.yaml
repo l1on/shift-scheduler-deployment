@@ -8,7 +8,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.deployment.replicaCount }}
   selector:
     matchLabels:
       app: {{ template "shift-scheduler.name" . }}
@@ -21,17 +21,17 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
           imagePullPolicy: {{ .Values.global.image.pullPolicy }}
           env:
             - name: PORT
-              value: {{ .Values.serverPort | quote }}
+              value: {{ .Values.deployment.serverPort | quote }}
           livenessProbe:
             httpGet:
               path: /
-              port: {{ .Values.serverPort }}
+              port: {{ .Values.deployment.serverPort }}
           readinessProbe:
             httpGet:
               path: /
-              port: {{ .Values.serverPort }}
+              port: {{ .Values.deployment.serverPort }}
 
