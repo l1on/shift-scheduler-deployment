@@ -8,7 +8,7 @@ project_id="$(gcloud projects list --format="csv[no-heading](PROJECT_ID)")"
 cluster="$(gcloud container clusters list --project ${project_id} --format="csv[no-heading](NAME,LOCATION)")"
 cluster_name="$(echo "${cluster}" | cut -d ',' -f 1-1)"
 # Weird travis ci bug related to the word "LOCATION" does not let cluster zone show up,
-# so right now the workaround is the hardcoded the zone into an env variable. 
+# so right now the workaround is the hardcoded the zone into an env variable on the travis ci servers. 
 # CLUSTER_ZONE="$(echo "${cluster}" | cut -d ',' -f 2-2)"
 
 gcloud container clusters get-credentials "${cluster_name}" --zone "${CLUSTER_ZONE}" --project "${project_id}"
