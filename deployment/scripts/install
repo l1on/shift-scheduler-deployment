@@ -16,5 +16,5 @@ gcloud container clusters get-credentials "${cluster_name}" --zone "${CLUSTER_ZO
 API_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-api/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 APP_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-app/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 
-helm package --version 0.0.$(git rev-list --count master)
+helm package --version 0.0.$(git rev-list --count master) .
 helm upgrade --install shift-scheduler --set api.deployment.image.tag="${API_IMAGE_TAG}",app.deployment.image.tag="${APP_IMAGE_TAG}" ./shift-scheduler-0.0.$(git rev-list --count master).tgz
