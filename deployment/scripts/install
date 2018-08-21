@@ -8,7 +8,7 @@ project_id="$(gcloud projects list --format="csv[no-heading](PROJECT_ID)")"
 cluster="$(gcloud container clusters list --project ${project_id} --format="csv[no-heading](NAME,LOCATION)")"
 cluster_name="$(echo "${cluster}" | cut -d ',' -f 1-1)"
 # Weird travis ci bug related to the word "LOCATION" does not let cluster zone show up,
-# so right now the workaround is the hardcoded the zone into an env variable on the travis ci servers. 
+# so right now the workaround is to hardcode the zone into an env variable on the travis ci servers. 
 # CLUSTER_ZONE="$(echo "${cluster}" | cut -d ',' -f 2-2)"
 
 gcloud container clusters get-credentials "${cluster_name}" --zone "${CLUSTER_ZONE}" --project "${project_id}"
@@ -16,4 +16,5 @@ gcloud container clusters get-credentials "${cluster_name}" --zone "${CLUSTER_ZO
 API_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-api/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 APP_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-app/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 
-helm upgrade --install shift-scheduler --set api.deployment.image.tag="${API_IMAGE_TAG}",app.deployment.image.tag="${APP_IMAGE_TAG}" .
+helm package --version 0.0.$(git rev-list --count master)
+helm upgrade --install shift-scheduler --set api.deployment.image.tag="${API_IMAGE_TAG}",app.deployment.image.tag="${APP_IMAGE_TAG}" ./shift-scheduler-0.0.$(git rev-list --count master).tgz
