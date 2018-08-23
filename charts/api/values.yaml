@@ -10,3 +10,16 @@ deployment:
 service:
   type: ClusterIP
   port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  host: chart-example.local
+  paths:
+    - /api/shifts
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
