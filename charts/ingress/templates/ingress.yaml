@@ -1,6 +1,6 @@
-{{- if .Values.ingress.enabled -}}
+{{- if .Values.enabled -}}
 {{- $fullName := include "shift-scheduler.fullname" . -}}
-{{- $ingressPath := .Values.ingress.path -}}
+{{- $releaseName := .Release.Name -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -8,31 +8,29 @@ metadata:
   labels:
     app: {{ template "shift-scheduler.name" . }}
     chart: {{ template "shift-scheduler.chart" . }}
-    release: {{ .Release.Name }}
+    release: {{ $releaseName }}
     heritage: {{ .Release.Service }}
-{{- with .Values.ingress.annotations }}
+{{- with .Values.annotations }}
   annotations:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
-{{- if .Values.ingress.tls }}
+{{- if .Values.tls }}
   tls:
-  {{- range .Values.ingress.tls }}
+  {{- range .Values.tls }}
     - hosts:
-      {{- range .hosts }}
-        - {{ . }}
-      {{- end }}
+        - {{ .Values.host }}
       secretName: {{ .secretName }}
   {{- end }}
 {{- end }}
   rules:
-  {{- range .Values.ingress.hosts }}
-    - host: {{ . }}
+    - host: {{ .Values.host }}
       http:
         paths:
-          - path: {{ $ingressPath }}
+        {{- range .Values.paths }}
+          - path: {{ .path }}
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: http
-  {{- end }}
+              serviceName: {{ printf "%s-%s" $releaseName .service }}
+              servicePort: {{ .port }}
+        {{- end }}
 {{- end }}
