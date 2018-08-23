@@ -17,5 +17,6 @@ API_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shif
 APP_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-app/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 
 helm init --client-only
+helm dependency update
 chart_pkg_name="$(helm package --version 0.0.$(git rev-list --count master) . | grep  -Po '(?<=\/)[a-z-]+-0\.0\.\d+\.tgz')"
 helm upgrade --install shift-scheduler --set api.deployment.image.tag="${API_IMAGE_TAG}",app.deployment.image.tag="${APP_IMAGE_TAG}" ./"${chart_pkg_name}"
