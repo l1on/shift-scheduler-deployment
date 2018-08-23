@@ -7,7 +7,7 @@ paths:
   - path: /api/shifts
     service: api
     port: 80
-  - path: /
+  - path: /*
     service: app
     port: 80   
 tls: []
