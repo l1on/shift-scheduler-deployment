@@ -28,7 +28,7 @@ spec:
       http:
         paths:
         {{- range .Values.ingress.paths }}
-          - path: {{ . | quote }}
+          - path: {{ . }}
             backend:
               serviceName: {{ $fullName }}
               servicePort: {{ $servicePort }}
