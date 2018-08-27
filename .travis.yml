@@ -1,5 +1,7 @@
 sudo: required
 language: generic
+git:
+  depth: false
 script: deployment/scripts/install
 notifications:
   slack:
