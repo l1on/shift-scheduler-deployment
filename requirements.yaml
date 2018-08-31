@@ -1,7 +1,4 @@
 dependencies:
-  #- name: nginx-ingress
-    #version: 0.23.0
-    #repository: "alias:stable"
-  - name: haproxy-ingress
-    version: 0.0.2
-    repository: "alias:incubator"
+  - name: nginx-ingress
+    version: 0.23.0
+    repository: "alias:stable"
