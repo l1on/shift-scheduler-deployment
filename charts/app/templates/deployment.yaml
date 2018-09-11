@@ -25,13 +25,13 @@ spec:
           imagePullPolicy: {{ .Values.global.image.pullPolicy }}
           env:
             - name: PORT
-              value: {{ .Values.port | quote }}
+              value: {{ .Values.global.httpPort | quote }}
           livenessProbe:
             httpGet:
               path: /
-              port: {{ .Values.port }}
+              port: {{ .Values.global.httpPort }}
           readinessProbe:
             httpGet:
               path: /
-              port: {{ .Values.port }}
+              port: {{ .Values.global.httpPort }}
 

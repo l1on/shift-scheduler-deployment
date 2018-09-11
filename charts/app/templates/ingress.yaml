@@ -1,6 +1,6 @@
-{{- if .Values.ingress.enabled -}}
+{{- if .Values.global.ingress.enabled -}}
 {{- $fullName := include "shift-scheduler.fullname" . -}}
-{{- $servicePort := .Values.port -}}
+{{- $servicePort := .Values.global.httpPort -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -10,21 +10,21 @@ metadata:
     chart: {{ template "shift-scheduler.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-{{- with .Values.ingress.annotations }}
+{{- with .Values.global.ingress.annotations }}
   annotations:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
-{{- if .Values.ingress.tls }}
+{{- if .Values.global.ingress.tls }}
   tls:
-  {{- range .Values.ingress.tls }}
+  {{- range .Values.global.ingress.tls }}
     - hosts:
-        - {{ .Values.ingress.host }}
+        - {{ .Values.global.ingress.host }}
       secretName: {{ .secretName }}
   {{- end }}
 {{- end }}
   rules:
-    - host: {{ .Values.ingress.host }}
+    - host: {{ .Values.global.ingress.host }}
       http:
         paths:
         {{- range .Values.ingress.paths }}
