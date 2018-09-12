@@ -26,6 +26,8 @@ spec:
           env:
             - name: PORT
               value: {{ .Values.global.httpPort | quote }}
+            - name: ADMIN_SERVICE_NAME
+              value: {{printf "%s-%s" .Release.Name "admin" | trunc 63 | trimSuffix "-" }}
           livenessProbe:
             httpGet:
               path: /healthcheck

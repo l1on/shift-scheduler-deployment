@@ -14,9 +14,9 @@ cluster_name="$(echo "${cluster}" | cut -d ',' -f 1-1)"
 gcloud container clusters get-credentials "${cluster_name}" --zone "${CLUSTER_ZONE}" --project "${project_id}"
 
 API_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-api/tags/?page_size=1 | jq -r '.results|.[0]|.name')
-APP_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-app/tags/?page_size=1 | jq -r '.results|.[0]|.name')
+ADMIN_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-admin/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 
 helm init --client-only
 helm dependency update
 chart_pkg_name="$(helm package --version 0.0.$(git rev-list --count master) . | grep  -Po '(?<=\/)[a-z-]+-0\.0\.\d+\.tgz')"
-helm upgrade --install shift-scheduler --set api.deployment.image.tag="${API_IMAGE_TAG}",app.deployment.image.tag="${APP_IMAGE_TAG}" ./"${chart_pkg_name}"
+helm upgrade --install shift-scheduler --set api.deployment.image.tag="${API_IMAGE_TAG}",admin.deployment.image.tag="${ADMIN_IMAGE_TAG}" ./"${chart_pkg_name}"

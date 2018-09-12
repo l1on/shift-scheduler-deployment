@@ -3,11 +3,11 @@
 deployment:
   replicaCount: 2
   image:
-    repository: iluvzhouying/shift-scheduler-app
+    repository: iluvzhouying/shift-scheduler-admin
 
 service:
   type: ClusterIP
 
 ingress:
   paths:
-    - /
+    - /api/admin

@@ -19,7 +19,8 @@
 .project
 .idea/
 *.tmproj
+.vscode/
 
-deployment/
+scripts/
 .travis.yml
 *.enc
