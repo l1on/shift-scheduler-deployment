@@ -10,4 +10,4 @@ service:
 
 ingress:
   paths:
-    - /api/shifts
+    - /shifts
