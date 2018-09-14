@@ -24,8 +24,7 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-    - host: {{ .Values.global.ingress.host }}
-      http:
+    - http:
         paths:
         {{- range .Values.ingress.paths }}
           - path: {{ . }}
