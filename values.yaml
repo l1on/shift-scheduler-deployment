@@ -7,6 +7,7 @@ global:
     annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/ssl-redirect: "false"
     # kubernetes.io/tls-acme: "true"
     tls: []
     #  - secretName: chart-example-tls
