@@ -3,7 +3,7 @@
 deployment:
   replicaCount: 2
   image:
-    repository: iluvzhouying/shift-scheduler-api
+    repository: iluvzhouying/shift-scheduler-shifts
 
 service:
   type: ClusterIP
