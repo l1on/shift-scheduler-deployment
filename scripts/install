@@ -19,8 +19,8 @@ ADMIN_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/sh
 helm init --client-only
 helm dependency update
 chart_pkg_name="$(helm package --version 0.0.$(git rev-list --count master) . | grep  -Po '(?<=\/)[a-z-]+-0\.0\.\d+\.tgz')"
-helm upgrade --install shift-scheduler --set \
+helm upgrade --install shift-scheduler ./"${chart_pkg_name}" --set \
     api.deployment.image.tag="${API_IMAGE_TAG}", \
     admin.deployment.image.tag="${ADMIN_IMAGE_TAG}", \
-    nginx-ingress.controller.service.loadBalancerIP="$(gcloud compute addresses list --format="csv[no-heading](ADDRESS)" --project=${project_id})" \
-    ./"${chart_pkg_name}"
+    nginx-ingress.controller.service.loadBalancerIP="$(gcloud compute addresses list --format="csv[no-heading](ADDRESS)" --project=${project_id})"
+    
