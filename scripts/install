@@ -18,9 +18,15 @@ SHIFTS_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/s
 ADMIN_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-admin/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 
 helm init --client-only
+
 helm repo add coreos https://s3-eu-west-1.amazonaws.com/coreos-charts/stable/
-helm dependency update
+helm upgrade prometheus-operator coreos/prometheus-operator --install --namespace monitoring
+helm upgrade kube-prometheus coreos/kube-prometheus --install --namespace monitoring
+
+helm upgrade nginx-ingress stable/nginx-ingress --install --namespace ingress --set \ 
+    controller.service.loadBalancerIP="${reserved_ip}"
+
 chart_pkg_name="$(helm package --version 0.0.$(git rev-list --count master) . | grep  -Po '(?<=\/)[a-z-]+-0\.0\.\d+\.tgz')"
-helm upgrade --install shift-scheduler ./"${chart_pkg_name}" --set \
-    shifts.deployment.image.tag="${SHIFTS_IMAGE_TAG}",admin.deployment.image.tag="${ADMIN_IMAGE_TAG}",nginx-ingress.controller.service.loadBalancerIP="${reserved_ip}"
+helm upgrade shift-scheduler ./"${chart_pkg_name}" --install --set \
+    shifts.deployment.image.tag="${SHIFTS_IMAGE_TAG}",admin.deployment.image.tag="${ADMIN_IMAGE_TAG}"
     
