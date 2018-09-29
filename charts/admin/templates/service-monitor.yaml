@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ template "shift-scheduler.fullname" . }}
+  labels:
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "shift-scheduler.name" . }}
+  endpoints:
+    - metricRelabelings: 
+      sourceLabels: 
+        - "__name__"
+      targetLabel: "__name__"
+      replacement: "shifts_scheduler_${1}"
