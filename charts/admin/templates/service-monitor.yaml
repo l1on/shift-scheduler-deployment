@@ -5,6 +5,9 @@ metadata:
   labels:
     tier: backend
 spec:
+  namespaceSelector:
+    matchNames: 
+      - default
   selector:
     matchLabels:
       app: {{ template "shift-scheduler.name" . }}
