@@ -4,7 +4,7 @@ metadata:
   namespace: monitoring
   name: {{ template "shift-scheduler.fullname" . }}
   labels:
-    tier: backend
+    prometheus: kube-prometheus
 spec:
   namespaceSelector:
     matchNames: 
