@@ -218,5 +218,14 @@
     "title": "Services",
     "uid": "6DG0V30mk",
     "version": 2
-  }
+  },
+  "inputs": [
+    {
+        "name": "DS_PROMETHEUS",
+        "pluginId": "prometheus",
+        "type": "datasource",
+        "value": "prometheus"
+    }
+  ],
+  "overwrite": true
 }
