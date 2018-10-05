@@ -3,7 +3,7 @@ kind: ServiceMonitor
 metadata:
   name: {{ template "shift-scheduler.fullname" . }}
   labels:
-    prometheus: shift-scheduler-prometheus
+    prometheus: kube-prometheus
 spec:
   selector:
     matchLabels:

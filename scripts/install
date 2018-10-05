@@ -16,15 +16,14 @@ gcloud container clusters get-credentials "${cluster_name}" --zone "${CLUSTER_ZO
 
 helm init --client-only
 
+helm upgrade nginx-ingress stable/nginx-ingress --install --namespace ingress --set controller.service.loadBalancerIP="${reserved_ip}"
+
 helm repo add coreos https://s3-eu-west-1.amazonaws.com/coreos-charts/stable/
 helm upgrade prometheus-operator coreos/prometheus-operator --install --namespace monitoring
 helm upgrade kube-prometheus coreos/kube-prometheus --install --namespace monitoring \
     --set grafana.serverDashboardConfigmaps={shift-scheduler-dashboards} \
     --set exporter-kubelets.https=false \
-    --set prometheus.serviceMonitorNamespaceSelector.matchNames={default} \
-    --set prometheus.prometheusLabelValue=shift-scheduler-prometheus
-
-helm upgrade nginx-ingress stable/nginx-ingress --install --namespace ingress --set controller.service.loadBalancerIP="${reserved_ip}"
+    --set prometheus.serviceMonitorNamespaceSelector.matchNames={default}
 
 SHIFTS_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-shifts/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 ADMIN_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-admin/tags/?page_size=1 | jq -r '.results|.[0]|.name')
