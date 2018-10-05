@@ -1,14 +1,14 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  namespace: monitoring
+  #namespace: monitoring
   name: {{ template "shift-scheduler.fullname" . }}
   labels:
     prometheus: kube-prometheus
 spec:
-  namespaceSelector:
-    matchNames: 
-      - default
+  #namespaceSelector:
+   # matchNames: 
+    #  - default
   selector:
     matchLabels:
       app: {{ template "shift-scheduler.name" . }}

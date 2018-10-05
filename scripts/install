@@ -19,7 +19,7 @@ helm init --client-only
 helm repo add coreos https://s3-eu-west-1.amazonaws.com/coreos-charts/stable/
 helm upgrade prometheus-operator coreos/prometheus-operator --install --namespace monitoring
 helm upgrade kube-prometheus coreos/kube-prometheus --install --namespace monitoring --set \
-    grafana.serverDashboardConfigmaps={shift-scheduler-dashboards},exporter-kubelets.https=false
+    grafana.serverDashboardConfigmaps={shift-scheduler-dashboards},exporter-kubelets.https=false,serviceMonitorNamespaceSelector.matchNames=default
 
 helm upgrade nginx-ingress stable/nginx-ingress --install --namespace ingress --set controller.service.loadBalancerIP="${reserved_ip}"
 
