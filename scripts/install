@@ -20,7 +20,7 @@ helm repo add coreos https://s3-eu-west-1.amazonaws.com/coreos-charts/stable/
 helm upgrade prometheus-operator coreos/prometheus-operator --install --namespace monitoring
 helm upgrade kube-prometheus coreos/kube-prometheus --install --namespace monitoring \
     --set grafana.serverDashboardConfigmaps={shift-scheduler-dashboards} \
-    --set exporter-kubelets.https=false \ 
+    --set exporter-kubelets.https=false \
     --set prometheus.serviceMonitorNamespaceSelector.matchNames={default} \
     --set prometheus.prometheusLabelValue=shift-scheduler-prometheus
 
