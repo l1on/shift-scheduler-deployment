@@ -4,4 +4,4 @@ metadata:
   namespace: monitoring
   name: shift-scheduler-dashboards
 data:
-{{ (.Files.Glob "grafana-dashboards/*.json").AsConfig | indent 2 }}
+{{ (.Files.Glob "monitoring/grafana-dashboards/*.json").AsConfig | indent 2 }}

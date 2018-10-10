@@ -1,0 +1,8 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    prometheus: kube-prometheus
+  name: {{ template "shift-scheduler.name" . }}
+spec:
+  {{ include "shift-scheduler.rules.yaml.tpl" . | indent 2}}

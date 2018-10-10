@@ -1,11 +1,5 @@
-apiVersion: monitoring.coreos.com/v1
-kind: PrometheusRule
-metadata:
-  labels:
-    prometheus: kube-prometheus
-  name: {{ template "shift-scheduler.name" . }}
-spec:
-  groups:
+{{ define "shift-scheduler.rules.yaml.tpl" }}
+groups:
   - name: shifts-scheduler
     rules:
     - record: shifts_scheduler:http_request_duration_seconds:avg
@@ -19,3 +13,4 @@ spec:
         description: the shifts-scheduler has a latency of {{`{{$value}}`}} seconds
           for {{`{{$labels.method}}`}} {{`{{$labels.handler}}`}}
         summary: shifts-scheduler high latency
+{{ end }}
