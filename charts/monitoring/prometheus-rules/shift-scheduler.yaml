@@ -1,4 +1,3 @@
-{{ define "shift-scheduler.rules.yaml.tpl" }}
 groups:
   - name: shifts-scheduler
     rules:
@@ -13,4 +12,4 @@ groups:
         description: the shifts-scheduler has a latency of {{`{{$value}}`}} seconds
           for {{`{{$labels.method}}`}} {{`{{$labels.handler}}`}}
         summary: shifts-scheduler high latency
-{{ end }}
+

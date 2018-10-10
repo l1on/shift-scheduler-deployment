@@ -5,4 +5,7 @@ metadata:
     prometheus: kube-prometheus
   name: {{ template "shift-scheduler.name" . }}
 spec:
-  {{ include "shift-scheduler.rules.yaml.tpl" . | indent 2}}
+{{- $files := .Files }}
+{{- range $path, $bytes := .Files.Glob "prometheus-rules/*.yaml" }}
+{{ $files.Get $path | indent 2 }}
+{{- end }}
