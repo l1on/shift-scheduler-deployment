@@ -24,7 +24,8 @@ helm upgrade kube-prometheus coreos/kube-prometheus --install --namespace monito
     --set grafana.serverDashboardConfigmaps={shift-scheduler-dashboards} \
     --set exporter-kubelets.https=false \
     --set prometheus.serviceMonitorNamespaceSelector.matchNames={default} \
-    --set prometheus.ruleNamespaceSelector.matchNames={default}
+    --set prometheus.ruleNamespaceSelector.matchNames={default} \
+    --set alertmanager.configFromSecret=alertmanager-kube-prometheus
 
 SHIFTS_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-shifts/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 ADMIN_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-admin/tags/?page_size=1 | jq -r '.results|.[0]|.name')
