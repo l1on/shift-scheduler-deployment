@@ -9,7 +9,7 @@ route:
   routes:
   - match:
       alertname: DeadMansSwitch
-    receiver: 'null'
+    receiver: 'slack'
 receivers:
 - name: 'slack'
   slack_configs:
