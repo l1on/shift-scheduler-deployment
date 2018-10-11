@@ -7,11 +7,11 @@ route:
   repeat_interval: 12h
   receiver: 'null'
   routes:
-    - match:
-        alertname: DeadMansSwitch
-      receiver: 'null'
+  - match:
+      alertname: DeadMansSwitch
+    receiver: 'null'
 receivers:
-  - name: 'slack'
+- name: 'slack'
   slack_configs:
-    - api_url: https://hooks.slack.com/services/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
+  - api_url: https://hooks.slack.com/services/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
       channel: '#alerts'
