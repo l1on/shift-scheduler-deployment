@@ -1,4 +1,0 @@
-routes:
-  receiver: 'slack'
-  group_by: []
-

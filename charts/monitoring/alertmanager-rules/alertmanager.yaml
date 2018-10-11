@@ -5,6 +5,9 @@ route:
   - match:
       alertname: DeadMansSwitch
     receiver: 'null'
+  - match_re:
+      service: ^shift-scheduler
+    group_by: ['service']
 
 receivers:
 - name: 'slack'
