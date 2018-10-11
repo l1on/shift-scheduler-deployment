@@ -1,6 +1,7 @@
 route:
   receiver: 'slack'
   group_by: ['alertname']
+  continue: true
   routes:
   - match:
       alertname: DeadMansSwitch
