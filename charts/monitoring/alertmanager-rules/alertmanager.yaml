@@ -1,5 +1,6 @@
 route:
   receiver: 'slack'
+  group_by: ['alertname']
 
 receivers:
 - name: 'slack'
