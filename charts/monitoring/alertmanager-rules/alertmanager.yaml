@@ -8,8 +8,8 @@ route:
     receiver: 'null'
     continue: true
   - match_re:
-      service: ^shift-scheduler
-    group_by: ['service']
+      service: shift-scheduler
+    group_by: ['alertname', 'service']
 
 receivers:
 - name: 'slack'
