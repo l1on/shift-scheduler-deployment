@@ -10,6 +10,7 @@ route:
   - match_re:
       service: shift-scheduler
     group_by: ['alertname', 'service']
+    receiver: 'null'
 
 receivers:
 - name: 'slack'
