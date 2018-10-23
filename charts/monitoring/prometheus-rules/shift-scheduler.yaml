@@ -9,7 +9,7 @@ groups:
       labels: 
         severity: warning
       annotations:
-        description: the shifts-scheduler has a latency of {{`{{$value}}`}} seconds
-          for {{`{{$labels.method}}`}} {{`{{$labels.handler}}`}}
+        description: the shifts-scheduler has a latency of {{$value}} seconds
+          for {{$labels.method}} {{$labels.handler}}
         summary: shifts-scheduler high latency
 
