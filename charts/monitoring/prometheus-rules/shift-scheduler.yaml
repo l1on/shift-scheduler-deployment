@@ -4,7 +4,7 @@ groups:
     - record: shifts_scheduler:http_request_duration_seconds:avg
       expr: shifts_scheduler_http_request_duration_seconds_sum / shifts_scheduler_http_request_duration_seconds_count
     - alert: LatencyHigh
-      expr: shifts_scheduler:http_request_duration_seconds:avg > 0
+      expr: shifts_scheduler:http_request_duration_seconds:avg > 1
       for: 5m
       labels: 
         severity: warning
