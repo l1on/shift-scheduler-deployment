@@ -23,7 +23,7 @@ helm upgrade prometheus-operator coreos/prometheus-operator --install --namespac
 helm upgrade kube-prometheus coreos/kube-prometheus --install --namespace monitoring \
     --set prometheus.serviceMonitorNamespaceSelector.matchNames={default} \
     --set prometheus.ruleNamespaceSelector.matchNames={default} \
-    --set alertmanager.configFromSecret=alertmanager-kube-prometheus
+    --set alertmanager.configFromSecret=alertmanager-kube-prometheus \
     --set grafana.serverDashboardConfigmaps={shift-scheduler-dashboards} \
     --set exporter-kubelets.https=false \
     --set deployKubeControllerManager=false \
