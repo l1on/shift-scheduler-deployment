@@ -32,5 +32,6 @@ ADMIN_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/sh
 chart_pkg_name="$(helm package --version 0.0.$(git rev-list --count master) . | grep  -Po '(?<=\/)[a-z-]+-0\.0\.\d+\.tgz')"
 helm upgrade shift-scheduler ./"${chart_pkg_name}" --install \
     --set shifts.deployment.image.tag="${SHIFTS_IMAGE_TAG}" \
-    --set admin.deployment.image.tag="${ADMIN_IMAGE_TAG}"
+    --set admin.deployment.image.tag="${ADMIN_IMAGE_TAG}" \
+    --set monitoring.slack_api_url="${SLACK_WEB_HOOK}"
     

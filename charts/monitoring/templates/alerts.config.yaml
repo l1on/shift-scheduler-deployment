@@ -1,0 +1,21 @@
+{{ define "alerts.config.yaml.tpl" }}
+route:
+  receiver: 'slack'
+  group_by: ['alertname']
+
+  routes:
+  - match:
+      alertname: DeadMansSwitch
+    receiver: 'null'
+
+receivers:
+- name: 'slack'
+  slack_configs:
+  - api_url: {{ .Values.slack_api_url }}
+    channel: '#alerts'
+    text: '{{`{{ template "slack.alerts.text" . }}`}}'
+- name: 'null'
+
+templates:
+- '*.tmpl'
+{{ end }}
