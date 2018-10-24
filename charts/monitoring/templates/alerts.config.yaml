@@ -1,7 +1,7 @@
 {{ define "alerts.config.yaml.tpl" }}
 route:
   receiver: 'slack'
-  group_by: ['alertname']
+  group_by: ['alertname', 'severity']
 
   routes:
   - match:
@@ -13,6 +13,8 @@ receivers:
   slack_configs:
   - api_url: {{ .Values.slack_api_url }}
     channel: '#alerts'
+    color: '{{`{{ template "slack.alerts.color" . }}`}}'
+    title: '{{`{{ template "slack.alerts.title" . }}`}}'
     text: '{{`{{ template "slack.alerts.text" . }}`}}'
 - name: 'null'
 

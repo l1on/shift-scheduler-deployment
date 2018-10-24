@@ -1,9 +1,16 @@
+{{ define "cluster" }}{{ .ExternalURL | reReplaceAll "http://alertmanager\\.([[:alnum:]]+)\\..+" "Production" }}{{ end }}
+
+{{ define "title" }}[{{ template "cluster" . }} {{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .GroupLabels.alertname }}{{ end }}
+
 {{ define "slack.alerts.text" }}
-    {{- $root := . -}}
     {{ range .Alerts }}
-        *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
-        *Description:* {{ .Annotations.description }}
-        *Details:*
-        {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`{{ end }}
+*Severity:* {{ if eq .Labels.severity "critical" }}`{{ .Labels.severity }}`{{ else }}_{{ .Labels.severity }}_{{ end }}
+*Description:* {{ if eq .Labels.severity "critical" }}*```{{ .Annotations.description }}```*{{else}}```{{ .Annotations.description }}```{{end}}
+*Prometheus Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>
+*Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
     {{ end }}
 {{ end }}
+
+{{ define "slack.alerts.title" }}{{ template "title" . }}{{ end }}
+
+{{ define "slack.alerts.color" }}{{ if eq .GroupLabels.severity "critical" }}danger{{ else }}warning{{ end }}{{ end }}
