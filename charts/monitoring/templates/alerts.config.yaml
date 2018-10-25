@@ -1,7 +1,7 @@
 {{ define "alerts.config.yaml.tpl" }}
 route:
   receiver: 'slack'
-  group_by: ['alertname', 'severity']
+  group_by: ['alertname', 'severity', 'cluster']
 
   routes:
   - match:
