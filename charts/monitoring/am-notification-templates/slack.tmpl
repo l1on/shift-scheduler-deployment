@@ -1,4 +1,4 @@
-{{ define "title" }}[{{.GroupLabels.cluster}} {{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .GroupLabels.alertname }}{{ end }}
+{{ define "title" }}[{{ .GroupLabels.cluster }} {{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .GroupLabels.alertname }}{{ end }}
 
 {{ define "slack.alerts.text" }}
     {{ range .Alerts }}
