@@ -1,13 +1,12 @@
-{{ define "title" }}[{{ .GroupLabels.cluster }} {{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .GroupLabels.alertname }}{{ end }}
-
 {{ define "slack.alerts.text" }}
     {{ range .Alerts }}
-*Severity:* {{ if eq .Labels.severity "critical" }}`{{ .Labels.severity }}`{{ else }}_{{ .Labels.severity }}_{{ end }}
-*Description:* {{ if eq .Labels.severity "critical" }}*```{{ .Annotations.description }}```*{{else}}```{{ .Annotations.description }}```{{end}}
-*Prometheus Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>
+{{ if eq .Labels.severity "critical" }}*```{{ .Annotations.description }}```*{{else}}```{{ .Annotations.description }}```{{end}}
+<{{ .GeneratorURL }}|Prometheus Web Console>
     {{ end }}
 {{ end }}
 
-{{ define "slack.alerts.title" }}{{ template "title" . }}{{ end }}
+{{ define "slack.alerts.title" }}[{{ .GroupLabels.cluster }} {{ if eq .GroupLabels.severity "critical" }}{{.GroupLabels.severity | toUpper}}{{ else }}{{.GroupLabels.severity}}{{ end }}] {{ .GroupLabels.alertname }} (# of alerts: {{ .Alerts.Firing | len }}){{ end }}
 
 {{ define "slack.alerts.color" }}{{ if eq .GroupLabels.severity "critical" }}danger{{ else }}warning{{ end }}{{ end }}
+
+{{ define "slack.alerts.footer" }}<{{ .ExternalURL | reReplaceAll "(.+)alertmanager(.+)" "${1}grafana${2}" }}|Grafana Dashboards>{{ end }}
