@@ -24,9 +24,6 @@ helm upgrade kube-prometheus coreos/kube-prometheus --install --namespace monito
     --set prometheus.externalLabels.cluster=${cluster_name} \
     --set alertmanager.configFromSecret=alertmanager-kube-prometheus \
     --set grafana.serverDashboardConfigmaps={shift-scheduler-dashboards} \
-    --set exporter-node.prometheusRules[0].name=empty \
-    --set exporter-node.prometheusRules[0].rules[0].record= \
-    --set exporter-node.prometheusRules[0].rules[0].expr= \
     --set exporter-kubelets.https=false \
     --set deployKubeControllerManager=false \
     --set deployKubeScheduler=false
