@@ -7,7 +7,7 @@ kind: PrometheusRule
 metadata:
   labels:
     prometheus: kube-prometheus 
-  name: kube-prometheus-exporter-node1
+  name: kube-prometheus-exporter-node
   namespace: monitoring
 spec:
   groups:
