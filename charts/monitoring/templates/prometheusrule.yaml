@@ -4,6 +4,7 @@ metadata:
   labels:
     prometheus: kube-prometheus
   name: {{ template "shift-scheduler.name" . }}
+  namespace: monitoring
 spec:
 {{- $files := .Files }}
 {{- range $path, $bytes := .Files.Glob "prometheus-rules/*.yaml" }}

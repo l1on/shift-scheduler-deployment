@@ -21,8 +21,6 @@ helm upgrade nginx-ingress stable/nginx-ingress --install --namespace ingress --
 helm repo add coreos https://s3-eu-west-1.amazonaws.com/coreos-charts/stable/
 helm upgrade prometheus-operator coreos/prometheus-operator --install --namespace monitoring
 helm upgrade kube-prometheus coreos/kube-prometheus --install --namespace monitoring \
-    --set prometheus.serviceMonitorNamespaceSelector.matchNames={default} \
-    --set prometheus.ruleNamespaceSelector.matchNames={default} \
     --set prometheus.externalLabels.cluster=${cluster_name} \
     --set alertmanager.configFromSecret=alertmanager-kube-prometheus \
     --set grafana.serverDashboardConfigmaps={shift-scheduler-dashboards} \
