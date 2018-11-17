@@ -3,5 +3,7 @@ kind: ConfigMap
 metadata:
   namespace: monitoring
   name: shift-scheduler-dashboards
+  labels: 
+    grafana_dashboard: 1
 data:
 {{ (.Files.Glob "grafana-dashboards/*.json").AsConfig | indent 2 }}
