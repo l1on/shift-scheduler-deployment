@@ -14,7 +14,7 @@ reserved_ip="$(gcloud compute addresses list --project ${project_id} --format="c
 
 gcloud container clusters get-credentials "${cluster_name}" --zone "${CLUSTER_ZONE}" --project "${project_id}"
 
-helm init --client-only
+helm init --upgrade --wait
 
 helm upgrade nginx-ingress stable/nginx-ingress --install --namespace ingress --set controller.service.loadBalancerIP="${reserved_ip}"
 
