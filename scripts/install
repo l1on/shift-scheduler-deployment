@@ -19,7 +19,9 @@ helm init --upgrade --wait
 helm upgrade nginx-ingress stable/nginx-ingress --install --namespace ingress --set controller.service.loadBalancerIP="${reserved_ip}"
 
 helm upgrade prometheus-operator stable/prometheus-operator --install --namespace monitoring \
-    --set prometheus.prometheusSpec.externalLabels.cluster=${cluster_name}
+    --set prometheus.prometheusSpec.externalLabels.cluster=${cluster_name} \
+    --set kubeControllerManager.enabled=false \
+    --set kubeScheduler.enabled=false
 
 SHIFTS_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-shifts/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 ADMIN_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-admin/tags/?page_size=1 | jq -r '.results|.[0]|.name')
