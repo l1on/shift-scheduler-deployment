@@ -4,7 +4,7 @@ metadata:
   name: {{ template "shift-scheduler.fullname" . }}
   namespace: monitoring
   labels:
-    release: kube-prometheus1
+    prometheus: kube-prometheus
 spec:
   namespaceSelector:
     any: true
