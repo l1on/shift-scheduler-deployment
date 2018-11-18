@@ -4,10 +4,15 @@ metadata:
   name: {{ template "shift-scheduler.fullname" . }}
   namespace: monitoring
   labels:
-    release: kube-prometheus
+    release: kube-prometheus1
 spec:
   namespaceSelector:
     any: true
   selector:
     matchLabels:
       app: {{ template "shift-scheduler.name" . }}
+  endpoints:
+    - metricRelabelings: 
+      - sourceLabels: [__name__]
+        targetLabel: __name__
+        replacement: shifts_scheduler_${1}
