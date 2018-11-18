@@ -18,8 +18,9 @@ helm init --upgrade --wait
 
 helm upgrade nginx-ingress stable/nginx-ingress --install --namespace ingress --set controller.service.loadBalancerIP="${reserved_ip}"
 
-helm upgrade prometheus-operator stable/prometheus-operator --install --namespace monitoring \
+helm upgrade kube-prometheus stable/prometheus-operator --install --namespace monitoring \
     --set prometheus.prometheusSpec.externalLabels.cluster=${cluster_name} \
+    --set prometheus.prometheusSpec.serviceMonitorSelector.matchLabels.prometheus=kube-prometheus \
     --set kubeControllerManager.enabled=false \
     --set kubeScheduler.enabled=false
 
