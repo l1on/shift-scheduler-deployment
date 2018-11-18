@@ -18,10 +18,26 @@ helm init --upgrade --wait
 
 helm upgrade nginx-ingress stable/nginx-ingress --install --namespace ingress --set controller.service.loadBalancerIP="${reserved_ip}"
 
+<<<<<<< HEAD
 helm upgrade kube-prometheus stable/prometheus-operator --install --namespace monitoring \
     --set prometheus.prometheusSpec.externalLabels.cluster=${cluster_name} \
     --set kubeControllerManager.enabled=false \
     --set kubeScheduler.enabled=false
+=======
+helm repo add coreos https://s3-eu-west-1.amazonaws.com/coreos-charts/stable/
+helm upgrade prometheus-operator coreos/prometheus-operator --install --namespace monitoring
+helm upgrade kube-prometheus coreos/kube-prometheus --install --namespace monitoring \
+    --set prometheus.externalLabels.cluster=${cluster_name} \
+    --set alertmanager.configFromSecret=alertmanager-kube-prometheus \
+    --set grafana.serverDashboardConfigmaps={shift-scheduler-dashboards} \
+    --set exporter-kubelets.https=false \
+    --set deployKubeControllerManager=false \
+    --set deployKubeScheduler=false
+  
+# Remove existing node alerting rules so that only our own customized node alerting rules are used. 
+# This line should be removed once coreOS promotes its kube-prometheus charts into official Helm chart repo.
+kubectl delete PrometheusRule -n monitoring kube-prometheus-exporter-node
+>>>>>>> parent of 9ecf0cd... test stable/prometheus-operator
 
 SHIFTS_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-shifts/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 ADMIN_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-admin/tags/?page_size=1 | jq -r '.results|.[0]|.name')
