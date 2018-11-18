@@ -20,7 +20,6 @@ helm upgrade nginx-ingress stable/nginx-ingress --install --namespace ingress --
 
 helm upgrade kube-prometheus stable/prometheus-operator --install --namespace monitoring \
     --set prometheus.prometheusSpec.externalLabels.cluster=${cluster_name} \
-    --set prometheus.prometheusSpec.serviceMonitorSelector.matchLabels.prometheus=kube-prometheus \
     --set kubeControllerManager.enabled=false \
     --set kubeScheduler.enabled=false
 
