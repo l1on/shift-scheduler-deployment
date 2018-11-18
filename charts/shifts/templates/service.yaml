@@ -10,7 +10,8 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.global.httpPort }}
+    - name: http
+      port: {{ .Values.global.httpPort }}
   selector:
     app: {{ template "shift-scheduler.name" . }}
     release: {{ .Release.Name }}
