@@ -32,6 +32,10 @@ helm upgrade kube-prometheus coreos/kube-prometheus --install --namespace monito
 # This line should be removed once coreOS promotes its kube-prometheus charts into official Helm chart repo.
 kubectl delete PrometheusRule -n monitoring kube-prometheus-exporter-node
 
+# Remove existing kubelets service monitor in order to install our own customized version of it. The customized 
+# version prevents false alerts in the original one.
+kubectl delete ServiceMonitor -n monitoring kube-prometheus-exporter-kubelets
+
 SHIFTS_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-shifts/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 ADMIN_IMAGE_TAG=$(curl -s https://hub.docker.com/v2/repositories/iluvzhouying/shift-scheduler-admin/tags/?page_size=1 | jq -r '.results|.[0]|.name')
 chart_pkg_name="$(helm package --version 0.0.$(git rev-list --count master) . | grep  -Po '(?<=\/)[a-z-]+-0\.0\.\d+\.tgz')"
