@@ -3,10 +3,7 @@ kind: ServiceMonitor
 metadata:
   labels:
     app: exporter-kubelets
-    chart: exporter-kubelets-0.2.11
     component: kubelets
-    heritage: "{{ .Release.Service }}"
-    release: kube-prometheus
     prometheus: kube-prometheus 
   name: kube-prometheus-exporter-kubelets
   namespace: monitoring
