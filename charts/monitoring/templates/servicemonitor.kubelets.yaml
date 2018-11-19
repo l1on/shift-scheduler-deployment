@@ -9,6 +9,7 @@ metadata:
     release: kube-prometheus
     prometheus: kube-prometheus 
   name: kube-prometheus-exporter-kubelets
+  namespace: monitoring
 spec:
   jobLabel: component
   selector:
